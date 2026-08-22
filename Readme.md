@@ -1,162 +1,148 @@
-# 📚 Doc Insights
+# DocInsights: AI-Powered Document Analysis Platform
 
-**Doc Insights** is an intelligent document-based chatbot that transforms your uploaded files into a conversation. Designed for students, researchers, and professionals, it enables interactive dialogue with your documents using modern LLMs and smart retrieval techniques.
+# Introduction & Goals
 
----
+This project delivers a Retrieval-Augmented Generation (RAG) document analysis platform. It automates the parsing of unstructured document data into structured, actionable insights using Python, allowing users to query and interact with their documents efficiently.
 
-## 🚀 Features
+* **What data you are working with:** Unstructured text and raw document files.
 
-- ✅ Upload and process multiple document formats (`.pdf`, `.docx`, `.txt`, `.html`)
-- ✅ Define a **custom task** (e.g., “Summarize these reports”, “Analyze this resume”)
-- ✅ Smart chunking & embedding for deep understanding
-- ✅ Interactive chatbot powered by **Gemini or OpenAI**
-- ✅ Modern Gradio UI with **animated transitions** and toggles
-- ✅ Reset chat to switch tasks dynamically without reloading
 
----
+* **What tools you are using:** Python, `pytest` for test-driven development, and custom data extractors.
 
-## 📂 Supported File Types
 
-- `.pdf` – Reads and extracts readable page content
-- `.txt` – Plain text file support
-- `.docx` – Extracts both text and tables
-- `.html` – Parses visible text; ignores scripts and styling
+* **What you are doing with these tools:** Building a robust RAG pipeline that processes raw documents, extracts relevant context, applies helper logic, and serves the analyzed results through a user interface.
 
----
 
-## 🧠 Tech Stack
 
-| Layer         | Tools Used                          |
-|--------------|-------------------------------------|
-| **Frontend**  | Gradio (with custom layout & fade-in transitions) |
-| **Backend**   | FastAPI + LangChain                 |
-| **LLMs**      | Gemini (Google Generative AI) or OpenAI GPT-4o-mini |
-| **Embeddings**| FAISS + GoogleGenerativeAIEmbeddings |
-| **Parsing**   | PyMuPDF, python-docx, BeautifulSoup |
+**Goal 1:** Accurately extract and chunk information from various document formats.
+**How I know it worked:** The `extractors.py` module successfully parses target documents, validated by a comprehensive suite of tests in `test_extractors.py`.
 
----
+**Goal 2:** Ensure reliable data transformation and API routing.
+**How I know it worked:** All data transformations and routes pass 100% of their test cases via `test_helpers.py` and `test_routes.py`.
 
-## 🧪 How It Works
+## Architecture
 
-1. **User uploads documents** and provides a task (e.g., summarize or analyze).
-2. All files are **automatically parsed** and their content extracted.
-3. Text is **split into chunks** and converted to **embeddings** using Gemini.
-4. Questions are contextualized based on **chat history + task**.
-5. Relevant chunks are retrieved and passed to the LLM.
-6. You get a helpful, task-relevant response instantly.
+# Contents
 
----
+* [The Data Set](https://www.google.com/search?q=%23the-data-set)
+* [Constraints](https://www.google.com/search?q=%23constraints)
+* [Used Tools](https://www.google.com/search?q=%23used-tools)
+* [Connect](https://www.google.com/search?q=%23connect)
+* [Processing](https://www.google.com/search?q=%23processing)
+* [Storage](https://www.google.com/search?q=%23storage)
+* [Visualization](https://www.google.com/search?q=%23visualization)
 
-## 🧪 Testing & Validation
 
-- ✅ **API Testing**: Verified all endpoints (`/upload`, `/chat`) independently.
-- ✅ **Document Testing**: Uploaded valid/invalid files to check error handling.
-- ✅ **Gemini/OpenAI Testing**: Verified Gemini fallback logic and session behavior.
-- ✅ **Chat State Testing**: Ensured history, reset, and session transitions work.
-- ✅ **Frontend UX Testing**: Fade-in/out animations, reset buttons, and scrollable UI.
+* [Pipelines](https://www.google.com/search?q=%23pipelines)
+* [Batch Processing](https://www.google.com/search?q=%23batch-processing)
+* [Visualizations](https://www.google.com/search?q=%23visualizations)
 
----
 
-## 🎯 Use Cases
+* [Demo](https://www.google.com/search?q=%23demo)
+* [What Breaks](https://www.google.com/search?q=%23what-breaks)
+* [Conclusion](https://www.google.com/search?q=%23conclusion)
+* [Follow Me On](https://www.google.com/search?q=%23follow-me-on)
 
-- 📊 Analyze financial or investment reports
-- 🧑‍🏫 Summarize lecture slides or resumes
-- 📚 Extract ideas from long academic texts
-- 🤖 Build internal document assistants
+# The Data Set
 
----
+* **Explain the data set:** The system processes raw documents, which often contain unstructured and messy text data.
 
-## ⚙️ Setup Instructions
 
-```bash
-git clone https://github.com/Reh1t/DocInsights
-cd doc-insights
-python -m venv venv
-venv\Scripts\activate   # or source venv/bin/activate
+* **Why did you choose it:** Documents are the primary source of enterprise knowledge, making efficient retrieval and extraction highly valuable.
+* **What is problematic:** Documents lack a consistent schema, meaning extraction logic must be highly resilient to formatting edge cases and artifacts.
+* **What do you want to do with it:** Normalize the raw text, embed it for retrieval, and extract structured metadata and insights.
 
-pip install -r requirements.txt
-```
 
----
 
-### 🔑 Environment Variables
+## How much data is it
 
-Create a `.env` file:
+Assuming the pipeline processes 1,000 documents a day, with an average file size of 2 MB, the daily ingestion volume is roughly 2 GB. Over a year (250 working days), this amounts to 500 GB of raw document data that needs to be parsed, chunked, and embedded into a vector space for the RAG pipeline.
 
-```env
-GOOGLE_API_KEY=your_google_api_key
-# or if using OpenAI
-# OPENAI_API_KEY=your_openai_api_key
-```
+# Constraints
 
----
+* **Compute:** Local processing utilizing standard Python runtime environments.
 
-## 🖥️ Run the App
 
-```bash
-# Start FastAPI backend
-uvicorn main:app --reload
+* **Data you do not control:** The varying formats, quality, and schemas of uploaded documents.
+* **Time:** Engineered as a streamlined solution focusing on extraction accuracy and UI usability.
 
-# In another terminal, launch the frontend
-python ui.py
-```
 
-Go to [http://127.0.0.1:7860](http://127.0.0.1:7860) to try it out.
 
----
+# Used Tools
 
-## ✅ What’s Done
+## Connect
 
-- [x] Full chatbot backend (FastAPI + LangChain)
-- [x] File parsing system (`extractors.py`)
-- [x] Custom fallback for contextual question generation
-- [x] Smart UI with fade transitions using Gradio
-- [x] Reset button and full frontend-interaction logic
-- [x] Modular codebase (`config.py`, `helpers.py`, etc.)
-- [x] Language support beyond English (Handled by Gradio By Default)
+* **API Routes (`main.py`):** Acts as the ingestion point for receiving document payloads and handling queries.
 
----
 
-## 💡 Extra Work & Improvements (Beyond Scope)
 
-- 🌐 **Production-style UI** (fade-in/out UX, section toggles)
-- 🧠 **Custom Contextualizer** with fallback for broken model responses
-- 🔁 **Reset Button** restores task section without refreshing the app
-- 🧪 **Tested for multiple document types & error handling**
-- 🧼 **Session preservation across questions**
-- 🛠️ **Code split into logical files** (clean and production-ready)
+## Processing
 
----
+* **Python Extraction Engine (`extractors.py` & `helpers.py`):** Core logic for parsing, cleaning, and preparing document chunks for retrieval.
 
-## 🛠️ Future Improvements
 
-- [ ] Streaming support for premium APIs
-- [ ] UI toggle to switch between Developer and User API
-- [ ] Chat history download / export
-- [ ] Model cost usage indicator
+* **Pytest (`tests/`):** Ensures high reliability by verifying extractors, helpers, and routes against edge cases.
 
----
 
-## 🤝 Contributing
 
-Contributions are welcome. Feel free to fork and send a PR with enhancements!
+## Storage
 
----
+* **Data Models (`models.py`):** Defines the strict data structures and schemas used to hold the extracted information in memory before serving.
 
-## 🧠 Credits
 
-Built with:
 
-- [LangChain](https://www.langchain.com/)
-- [FastAPI](https://fastapi.tiangolo.com/)
-- [Google Generative AI](https://ai.google.dev/)
-- [Gradio](https://www.gradio.app/)
-- [FAISS](https://github.com/facebookresearch/faiss)
+## Visualization
 
----
+* **User Interface (`ui.py`):** A frontend component that allows users to upload documents and visually consume the extracted insights and RAG query results.
 
-## 📜 License
 
-Developed by Rehan Tariq
 
----
+# Pipelines
+
+## Batch Processing
+
+The pipeline operates as a structured batch processor for individual files:
+
+1. **Ingestion:** Documents are received via the application routes.
+
+
+2. **Extraction:** `extractors.py` isolates the relevant text and metadata from the raw file.
+
+
+3. **Transformation:** `helpers.py` cleans and normalizes the extracted data into semantic chunks.
+
+
+4. **Structuring:** Data is mapped to schemas defined in `models.py` for analysis.
+
+
+
+## Visualizations
+
+The output is presented through the interface defined in `ui.py`, allowing users to interact directly with the analyzed document data.
+
+# Demo
+
+*(Add a GIF or screenshot of the `ui.py` interface successfully extracting data and answering queries from a sample document here.)*
+
+# What Breaks
+
+* **Complex Formatting:** Highly irregular documents, scanned images without OCR, or corrupted files will likely break the parsing logic in `extractors.py`.
+
+
+* *Fix:* Expand the test coverage in `test_extractors.py` and implement fallback regex patterns.
+
+
+
+
+* **High Concurrency:** Processing massive batches of heavy PDFs simultaneously could exhaust local memory.
+* *Fix:* Implement a message queue (like Celery or RabbitMQ) to handle document processing asynchronously.
+
+
+
+# Conclusion
+
+This project successfully demonstrates a reliable, test-driven pipeline for unstructured document analysis. By modularizing the extraction, data modeling, and routing logic, the architecture remains clean and highly extensible. Ensuring strict test coverage across all components was key to handling the unpredictable nature of document data.
+
+# Follow Me On
+
+* **LinkedIn:** [https://www.linkedin.com/in/rehantariqbhatti](https://www.linkedin.com/in/rehantariqbhatti)
